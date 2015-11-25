@@ -1,4 +1,6 @@
 defmodule Issues.GithubIssues do
+  require Logger
+
   @user_agent [{ "User-agent", "Elixir bigardone@gmail.com" }]
   @github_url Application.get_env(:issues, :github_url)
 
@@ -12,6 +14,6 @@ defmodule Issues.GithubIssues do
     "#{@github_url}/repos/#{user}/#{project}/issues"
   end
 
-  def handle_response(%{ status_code: 200, body: body }), do: { :ok, :jsx.decode(body) }
-  def handle_response(%{ status_code: ___, body: body }), do: { :error, :jsx.decode(body) }
+  def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}), do: { :ok, :jsx.decode(body) }
+  def handle_response({:ok, %HTTPoison.Response{status_code: ___, body: body}}), do: { :error, :jsx.decode(body) }
 end
