@@ -31,7 +31,9 @@ defmodule Issues.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.8.0"}
+      { :httpoison, "~> 0.8.0" },
+      { :hackney,   "1.4.4" },
+      { :jsx,       "~> 2.8" }
     ]
   end
 end
